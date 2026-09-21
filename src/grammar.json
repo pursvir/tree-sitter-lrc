@@ -1,0 +1,328 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
+  "name": "lrc",
+  "rules": {
+    "source_file": {
+      "type": "REPEAT",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "time_tag"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_newline"
+          }
+        ]
+      }
+    },
+    "header": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "id_tag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "id_tag": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "title_tag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "artist_tag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "album_tag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "author_tag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "lyricist_tag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "length_tag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "by_tag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "offset_tag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "tool_tag"
+        }
+      ]
+    },
+    "title_tag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "SYMBOL",
+          "name": "title_key"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "value"
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
+    },
+    "artist_tag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "SYMBOL",
+          "name": "artist_key"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "value"
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
+    },
+    "album_tag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "SYMBOL",
+          "name": "album_key"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "value"
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
+    },
+    "length_tag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "SYMBOL",
+          "name": "length_key"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "length_value"
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
+    },
+    "lyricist_tag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "SYMBOL",
+          "name": "lyricist_key"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "value"
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
+    },
+    "offset_tag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "SYMBOL",
+          "name": "offset_key"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "offset_value"
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
+    },
+    "author_tag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "SYMBOL",
+          "name": "author_key"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "value"
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
+    },
+    "tool_tag": {
+      "type": "PATTERN",
+      "value": "^(?:re|tool):$"
+    },
+    "by_tag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "SYMBOL",
+          "name": "by_key"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "value"
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
+    },
+    "title_key": {
+      "type": "STRING",
+      "value": "ti:"
+    },
+    "artist_key": {
+      "type": "STRING",
+      "value": "ar:"
+    },
+    "length_key": {
+      "type": "STRING",
+      "value": "length:"
+    },
+    "author_key": {
+      "type": "STRING",
+      "value": "au:"
+    },
+    "album_key": {
+      "type": "STRING",
+      "value": "al:"
+    },
+    "offset_key": {
+      "type": "STRING",
+      "value": "offset:"
+    },
+    "by_key": {
+      "type": "STRING",
+      "value": "by:"
+    },
+    "lyricist_key": {
+      "type": "STRING",
+      "value": "lr:"
+    },
+    "value": {
+      "type": "PATTERN",
+      "value": "^.*$"
+    },
+    "length_value": {
+      "type": "PATTERN",
+      "value": "\\d{2}:\\d{2}"
+    },
+    "offset_value": {
+      "type": "PATTERN",
+      "value": "^[+-]\\]\\d+$"
+    },
+    "time_tag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "timestamp"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "lyrics"
+        }
+      ]
+    },
+    "timestamp": {
+      "type": "PATTERN",
+      "value": "\\[\\d{2}\\:[0-5]\\d\\.\\d{2}\\]"
+    },
+    "lyrics": {
+      "type": "PATTERN",
+      "value": ".*"
+    },
+    "comment": {
+      "type": "PATTERN",
+      "value": "^#.*$"
+    },
+    "_newline": {
+      "type": "PATTERN",
+      "value": "\\r?\\n"
+    }
+  },
+  "extras": [],
+  "conflicts": [],
+  "precedences": [],
+  "externals": [],
+  "inline": [],
+  "supertypes": [],
+  "reserved": {}
+}

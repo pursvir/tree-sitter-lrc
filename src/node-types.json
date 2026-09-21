@@ -1,0 +1,45 @@
+[
+  {
+    "type": "source_file",
+    "named": true,
+    "root": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "time_tag",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "time_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "lyrics",
+          "named": true
+        },
+        {
+          "type": "timestamp",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "lyrics",
+    "named": true
+  },
+  {
+    "type": "timestamp",
+    "named": true
+  }
+]

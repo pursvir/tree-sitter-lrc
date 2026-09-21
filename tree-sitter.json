@@ -1,0 +1,41 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "lrc",
+      "camelcase": "Lrc",
+      "title": "Timed lyrics",
+      "scope": "source.lrc",
+      "file-types": [
+        "lrc"
+      ],
+      "injection-regex": "^lrc$",
+      "class-name": "TreeSitterLrc"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "Tree-sitter grammars for parsing time lyrics files (.lrc extension).",
+    "authors": [
+      {
+        "name": "pursvir",
+        "url": ""
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/pursvir/tree-sitter-lrc",
+      "funding": ""
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "java": false,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true,
+    "zig": false
+  }
+}
