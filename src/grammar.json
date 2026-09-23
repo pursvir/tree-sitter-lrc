@@ -3,33 +3,61 @@
   "name": "lrc",
   "rules": {
     "source_file": {
-      "type": "REPEAT",
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "header"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "time_tag"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_eol"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "header": {
+      "type": "REPEAT1",
       "content": {
         "type": "SEQ",
         "members": [
           {
             "type": "SYMBOL",
-            "name": "time_tag"
+            "name": "id_tag"
           },
           {
-            "type": "SYMBOL",
-            "name": "_newline"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_eol"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
           }
         ]
       }
-    },
-    "header": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "id_tag"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_newline"
-        }
-      ]
     },
     "id_tag": {
       "type": "CHOICE",
@@ -220,8 +248,25 @@
       ]
     },
     "tool_tag": {
-      "type": "PATTERN",
-      "value": "^(?:re|tool):$"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "SYMBOL",
+          "name": "tool_key"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "value"
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
     },
     "by_tag": {
       "type": "SEQ",
@@ -244,6 +289,19 @@
         }
       ]
     },
+    "time_tag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "timestamp"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "lyrics"
+        }
+      ]
+    },
     "title_key": {
       "type": "STRING",
       "value": "ti:"
@@ -259,6 +317,19 @@
     "author_key": {
       "type": "STRING",
       "value": "au:"
+    },
+    "tool_key": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "re:"
+        },
+        {
+          "type": "STRING",
+          "value": "tool:"
+        }
+      ]
     },
     "album_key": {
       "type": "STRING",
@@ -278,47 +349,43 @@
     },
     "value": {
       "type": "PATTERN",
-      "value": "^.*$"
+      "value": "[^\\]\\r\\n]*"
     },
     "length_value": {
       "type": "PATTERN",
-      "value": "\\d{2}:\\d{2}"
+      "value": "[ \\t]*\\d{2}:\\d{2}"
     },
     "offset_value": {
       "type": "PATTERN",
-      "value": "^[+-]\\]\\d+$"
-    },
-    "time_tag": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "timestamp"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "lyrics"
-        }
-      ]
+      "value": "[ \\t]*[+-]\\d+"
     },
     "timestamp": {
       "type": "PATTERN",
-      "value": "\\[\\d{2}\\:[0-5]\\d\\.\\d{2}\\]"
+      "value": "\\[\\d{2}\\:[0-5]\\d\\.\\d{2,3}\\]"
     },
     "lyrics": {
       "type": "PATTERN",
-      "value": ".*"
+      "value": "[^\\]\\r\\n]*"
     },
     "comment": {
       "type": "PATTERN",
-      "value": "^#.*$"
+      "value": "#[^\\]\\r\\n]*"
     },
-    "_newline": {
+    "_eol": {
       "type": "PATTERN",
-      "value": "\\r?\\n"
+      "value": "[ \\t]*\\r?\\n"
     }
   },
-  "extras": [],
+  "extras": [
+    {
+      "type": "PATTERN",
+      "value": "[ \\t]"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "comment"
+    }
+  ],
   "conflicts": [],
   "precedences": [],
   "externals": [],

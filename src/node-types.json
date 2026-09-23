@@ -1,5 +1,205 @@
 [
   {
+    "type": "album_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "album_key",
+          "named": true
+        },
+        {
+          "type": "value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "artist_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "artist_key",
+          "named": true
+        },
+        {
+          "type": "value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "author_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "author_key",
+          "named": true
+        },
+        {
+          "type": "value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "by_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "by_key",
+          "named": true
+        },
+        {
+          "type": "value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "header",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "id_tag",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "id_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "album_tag",
+          "named": true
+        },
+        {
+          "type": "artist_tag",
+          "named": true
+        },
+        {
+          "type": "author_tag",
+          "named": true
+        },
+        {
+          "type": "by_tag",
+          "named": true
+        },
+        {
+          "type": "length_tag",
+          "named": true
+        },
+        {
+          "type": "lyricist_tag",
+          "named": true
+        },
+        {
+          "type": "offset_tag",
+          "named": true
+        },
+        {
+          "type": "title_tag",
+          "named": true
+        },
+        {
+          "type": "tool_tag",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "length_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "length_key",
+          "named": true
+        },
+        {
+          "type": "length_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "lyricist_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "lyricist_key",
+          "named": true
+        },
+        {
+          "type": "value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "lyrics",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "offset_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "offset_key",
+          "named": true
+        },
+        {
+          "type": "offset_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "source_file",
     "named": true,
     "root": true,
@@ -8,6 +208,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "header",
+          "named": true
+        },
         {
           "type": "time_tag",
           "named": true
@@ -35,11 +239,116 @@
     }
   },
   {
-    "type": "lyrics",
+    "type": "title_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "title_key",
+          "named": true
+        },
+        {
+          "type": "value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tool_key",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "tool_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "tool_key",
+          "named": true
+        },
+        {
+          "type": "value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "value",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "[",
+    "named": false
+  },
+  {
+    "type": "]",
+    "named": false
+  },
+  {
+    "type": "album_key",
     "named": true
+  },
+  {
+    "type": "artist_key",
+    "named": true
+  },
+  {
+    "type": "author_key",
+    "named": true
+  },
+  {
+    "type": "by_key",
+    "named": true
+  },
+  {
+    "type": "comment",
+    "named": true,
+    "extra": true
+  },
+  {
+    "type": "length_key",
+    "named": true
+  },
+  {
+    "type": "length_value",
+    "named": true
+  },
+  {
+    "type": "lyricist_key",
+    "named": true
+  },
+  {
+    "type": "offset_key",
+    "named": true
+  },
+  {
+    "type": "offset_value",
+    "named": true
+  },
+  {
+    "type": "re:",
+    "named": false
   },
   {
     "type": "timestamp",
     "named": true
+  },
+  {
+    "type": "title_key",
+    "named": true
+  },
+  {
+    "type": "tool:",
+    "named": false
   }
 ]
