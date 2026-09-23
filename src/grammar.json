@@ -6,97 +6,83 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "header"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
           "type": "REPEAT",
           "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "time_tag"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "_eol"
-              }
-            ]
-          }
-        }
-      ]
-    },
-    "header": {
-      "type": "REPEAT1",
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "id_tag"
-          },
-          {
             "type": "CHOICE",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "_eol"
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "title_tag"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "artist_tag"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "album_tag"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "author_tag"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "lyricist_tag"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "length_tag"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "by_tag"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "offset_tag"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "tool_tag"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_eol"
+                  }
+                ]
               },
               {
-                "type": "BLANK"
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "time_tag"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_eol"
+                  }
+                ]
+              },
+              {
+                "type": "SYMBOL",
+                "name": "comment"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_eol"
               }
             ]
           }
-        ]
-      }
-    },
-    "id_tag": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "title_tag"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "artist_tag"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "album_tag"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "author_tag"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "lyricist_tag"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "length_tag"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "by_tag"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "offset_tag"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "tool_tag"
         }
       ]
     },
@@ -293,12 +279,28 @@
       "type": "SEQ",
       "members": [
         {
+          "type": "STRING",
+          "value": "["
+        },
+        {
           "type": "SYMBOL",
           "name": "timestamp"
         },
         {
-          "type": "SYMBOL",
-          "name": "lyrics"
+          "type": "STRING",
+          "value": "]"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "lyrics_part"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -349,43 +351,89 @@
     },
     "value": {
       "type": "PATTERN",
-      "value": "[^\\]\\r\\n]*"
+      "value": "[^\\]\\r\\n]+"
     },
     "length_value": {
-      "type": "PATTERN",
-      "value": "[ \\t]*\\d{2}:\\d{2}"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_spaces"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "PATTERN",
+          "value": "\\d{2}:\\d{2}"
+        }
+      ]
     },
     "offset_value": {
-      "type": "PATTERN",
-      "value": "[ \\t]*[+-]\\d+"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_spaces"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "PATTERN",
+          "value": "[+-]\\d+"
+        }
+      ]
     },
     "timestamp": {
       "type": "PATTERN",
-      "value": "\\[\\d{2}\\:[0-5]\\d\\.\\d{2,3}\\]"
+      "value": "\\d{2}\\:[0-5]\\d\\.\\d{2,3}"
     },
-    "lyrics": {
+    "lyrics_part": {
       "type": "PATTERN",
-      "value": "[^\\]\\r\\n]*"
+      "value": "[^\\]\\r\\n]+"
     },
     "comment": {
       "type": "PATTERN",
       "value": "#[^\\]\\r\\n]*"
     },
     "_eol": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_spaces"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "PATTERN",
+          "value": "\\r?\\n"
+        }
+      ]
+    },
+    "_spaces": {
       "type": "PATTERN",
-      "value": "[ \\t]*\\r?\\n"
+      "value": "[ \\t]+"
     }
   },
-  "extras": [
-    {
-      "type": "PATTERN",
-      "value": "[ \\t]"
-    },
-    {
-      "type": "SYMBOL",
-      "name": "comment"
-    }
-  ],
+  "extras": [],
   "conflicts": [],
   "precedences": [],
   "externals": [],

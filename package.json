@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-lrc",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Tree-sitter grammars for parsing time lyrics files (.lrc extension).",
   "type": "module",
   "repository": {

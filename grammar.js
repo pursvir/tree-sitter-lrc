@@ -4,32 +4,34 @@
  * @license MIT
  */
 
+
 export default grammar({
   name: "lrc",
 
-  extras: $ => [/[ \t]/, $.comment],
+  extras: $ => [],
 
   rules: {
     source_file: $ => seq(
-      optional($.header),
-      repeat(seq($.time_tag, $._eol)),
-    ),
-
-    header: $ => repeat1(
-      seq($.id_tag, optional($._eol)),
-    ),
-
-    // NOTE: this allows tag duplicates!
-    id_tag: $ => choice(
-      $.title_tag,
-      $.artist_tag,
-      $.album_tag,
-      $.author_tag,
-      $.lyricist_tag,
-      $.length_tag,
-      $.by_tag,
-      $.offset_tag,
-      $.tool_tag,
+      repeat(
+        // NOTE: this permits ID tags to be under time tags!
+        choice(
+          seq(
+            choice(
+              $.title_tag,
+              $.artist_tag,
+              $.album_tag,
+              $.author_tag,
+              $.lyricist_tag,
+              $.length_tag,
+              $.by_tag,
+              $.offset_tag,
+              $.tool_tag,
+            ), $._eol),
+          seq($.time_tag, $._eol),
+          $.comment,
+          $._eol,
+        ),
+      )
     ),
 
     // ID tags
@@ -43,7 +45,7 @@ export default grammar({
     tool_tag: $ => seq("[", $.tool_key, $.value, "]"),
     by_tag: $ => seq("[", $.by_key, $.value, "]"),
 
-    time_tag: $ => seq($.timestamp, $.lyrics),
+    time_tag: $ => seq("[", $.timestamp, "]", optional($.lyrics_part)),
 
     title_key: $ => "ti:",
     artist_key: $ => "ar:",
@@ -55,14 +57,15 @@ export default grammar({
     by_key: $ => "by:",
     lyricist_key: $ => "lr:",
 
-    value: $ => /[^\]\r\n]*/,
-    length_value: $ => /[ \t]*\d{2}:\d{2}/,
-    offset_value: $ => /[ \t]*[+-]\d+/,
+    value: $ => /[^\]\r\n]+/,
+    length_value: $ => seq(optional($._spaces), /\d{2}:\d{2}/),
+    offset_value: $ => seq(optional($._spaces), /[+-]\d+/),
 
-    timestamp: $ => /\[\d{2}\:[0-5]\d\.\d{2,3}\]/,
-    lyrics: $ => /[^\]\r\n]*/,
+    timestamp: $ => /\d{2}\:[0-5]\d\.\d{2,3}/,
+    lyrics_part: $ => /[^\]\r\n]+/,
 
     comment: $ => /#[^\]\r\n]*/,
-    _eol: ($) => /[ \t]*\r?\n/
+    _eol: $ => seq(optional($._spaces), /\r?\n/),
+    _spaces: $ =>  /[ \t]+/,
   }
 });
